@@ -2,7 +2,8 @@ import React from 'react';
 import style from './home.module.scss'
 import { Breadcrumb, Layout, theme ,Avatar, Space,Empty} from 'antd';
 import {BookFilled,UserOutlined} from '@ant-design/icons'
-const { Header, Content, Footer } = Layout;
+import { Header } from "../../components";
+const {  Content, Footer } = Layout;
 
 
 const Home = () => {
@@ -12,7 +13,8 @@ const Home = () => {
     
       return (
         <Layout className={style.layout}>
-          <Header className={style.header}>
+          <Header/>
+          {/* <Header className={style.header}>
             <div className={style.right_header}>
                 <BookFilled style={{color: "white",fontSize: "20px"}}/>
                 &nbsp; แมวเหมียว
@@ -22,7 +24,7 @@ const Home = () => {
                 แมวเหมียวโรคจิต
             </div>
 
-          </Header>
+          </Header> */}
           <Content className={style.content}>
               <Empty/>
               {/* <div  style={{ background: colorBgContainer }}> */}

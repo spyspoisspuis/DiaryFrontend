@@ -1,0 +1,15 @@
+version: '3'
+services:
+  web:
+    container_name: auengauey_frontend_web
+    image: auengauey-diary-frontend:latest
+    build:
+      context: .
+    working_dir: /app
+    ports:
+      - 3000:3000
+    networks:
+      - backbone
+networks:
+  backbone:
+    driver: bridge

@@ -18,6 +18,10 @@ COPY --from=deps /app/node_modules ./node_modules
 
 COPY . .
 
+# Set .env 
+ARG NEXT_PUBLIC_BACKEND_API
+ENV NEXT_PUBLIC_BACKEND_API ${NEXT_PUBLIC_BACKEND_API}
+
 RUN yarn build
 
 # Production image, copy all the files and run next

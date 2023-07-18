@@ -1,38 +1,45 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import style from './home.module.scss'
-import { Breadcrumb, Layout, theme ,Avatar, Space,Empty} from 'antd';
-import {BookFilled,UserOutlined} from '@ant-design/icons'
+import { Layout, Empty} from 'antd';
 import { Header } from "../../components";
+import axios from "axios"
+import { useRouter } from "next/router";
+
 const {  Content, Footer } = Layout;
 
 
 const Home = () => {
-    const {
-        token: { colorBgContainer },
-      } = theme.useToken();
-    
-      return (
-        <Layout className={style.layout}>
-          <Header/>
-          {/* <Header className={style.header}>
-            <div className={style.right_header}>
-                <BookFilled style={{color: "white",fontSize: "20px"}}/>
-                &nbsp; แมวเหมียว
-            </div>
-            <div>
-                <Avatar size="large" icon={<UserOutlined />} />
-                แมวเหมียวโรคจิต
-            </div>
+  const router = useRouter();
+  const token = typeof localStorage !== "undefined" ? localStorage.getItem("authToken") : null;
 
-          </Header> */}
-          <Content className={style.content}>
-              <Empty/>
-              {/* <div  style={{ background: colorBgContainer }}> */}
-            
-          </Content>
-          <Footer style={{ textAlign: 'center' }}>หมาป่าหล่อเท่สุดคูล</Footer>
-        </Layout>
-      );
+  useEffect(() => {
+    if (token == null) {
+      router.push({
+        pathname: "/login"
+      });
+    }
+  },[])
+
+
+  // const axiosInstance = axios.create({
+  //   headers: {
+  //     // Set the Authorization header with the token value
+  //     Authorization: `Bearer ${token}`,
+  //   },
+  // });
+
+    
+  return (
+    <Layout className={style.layout}>
+      <Header/>
+
+      <Content className={style.content}>
+          <Empty/>
+        
+      </Content>
+      <Footer style={{ textAlign: 'center' }}>หมาป่าหล่อเท่สุดคูล</Footer>
+    </Layout>
+  );
 }
 
 

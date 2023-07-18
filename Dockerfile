@@ -8,6 +8,10 @@ RUN yarn install --frozen-lockfile
 # Rebuild the source code only when needed
 FROM node:16-alpine AS builder
 
+
+# ARG NEXT_PUBLIC_BACKEND_API=""
+# ENV NEXT_PUBLIC_BACKEND_API=$NEXT_PUBLIC_BACKEND_API
+
 WORKDIR /app
 
 COPY --from=deps /app/node_modules ./node_modules

@@ -1,64 +1,90 @@
 import React from 'react';
 import style from './login.module.scss'
-import {Layout,Empty, Button, Form, Input} from 'antd';
-import { } from 'antd';
-
-import { Header } from "../../components";
+import {Layout, Button, Form, Input} from 'antd';
+import axios from "axios";
+import { useRouter } from "next/router";
+import { LoginWebHeader } from "../../components";
+import {AUEYUSERNAME,AUEYDISPLAYNAME, TESTDISPLAYNAME,AUEYCOLORTHEME,TESTCOLORTHEME, SPYUSERNAME, SPYDISPLAYNAME, SPYCOLORTHEME} from '../../constant'
 
 const { Content, Footer } = Layout;
 
-const onFinish = (values: any) => {
-    console.log('Success:', values);
-  };
-  
-  const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo);
-  };
-
 const Login = () => {
+    const router = useRouter();
+    const onLogin = (values: any) => {
+        console.log(process.env.NEXT_PUBLIC_BACKEND_API);
+        axios.post(process.env.NEXT_PUBLIC_BACKEND_API+`/login`, {
+            Username: values.username,
+            Password: values.password
+          }, { withCredentials: true })
+            .then(function (response) {
+                const storeAuthToken = response.data.token;
+                localStorage.setItem('authToken',storeAuthToken);
+                if (response.data.username == AUEYUSERNAME) {
+                    localStorage.setItem('user',AUEYDISPLAYNAME)
+                    localStorage.setItem('theme',AUEYCOLORTHEME)
 
+                } else if (response.data.username == SPYUSERNAME){
+                    localStorage.setItem('user',SPYDISPLAYNAME)
+                    localStorage.setItem('theme',SPYCOLORTHEME)
+                }else {
+                    localStorage.setItem('user',TESTDISPLAYNAME)
+                    localStorage.setItem('theme',TESTCOLORTHEME)
 
-      return (
+                }
+                router.push({
+                    pathname: "/home"
+                });
+            })
+            .catch(function (error) {
+                alert(error);
+            });
+    };
+      
+    const onFinishFailed = (errorInfo: any) => {
+        console.log('Failed:', errorInfo);
+    };
+
+    return (
         <Layout className={style.layout}>
-           <Header/>
-          <Content className={style.content}>
-            <Form
-                name="basic"
-                labelCol={{ span: 8 }}
-                wrapperCol={{ span: 16 }}
-                style={{ maxWidth: 600 }}
-                initialValues={{ remember: true }}
-                onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
-                autoComplete="off"
-            >
-                <Form.Item
-                    label="Username"
-                    name="username"
-                    rules={[{ required: true, message: 'Please input your username!' }]}
+            <LoginWebHeader/>
+            <Content className={style.content}>
+                <Form
+                    name="basic"
+                    labelCol={{ span: 8 }}
+                    wrapperCol={{ span: 16 }}
+                    style={{ maxWidth: 600 }}
+                    initialValues={{ remember: true }}
+                    onFinish={onLogin}
+                    onFinishFailed={onFinishFailed}
+                    autoComplete="off"
                 >
-                    <Input />
-                </Form.Item>
+                    <Form.Item
+                        label="Username"
+                        name="username"
+                        rules={[{ required: true, message: 'Please input your username!' }]}
+                    >
+                        <Input />
+                    </Form.Item>
 
-                <Form.Item
-                    label="Password"
-                    name="password"
-                    rules={[{ required: true, message: 'Please input your password!' }]}
-                >
-                    <Input.Password />
-                </Form.Item>
+                    <Form.Item
+                        label="Password"
+                        name="password"
+                        rules={[{ required: true, message: 'Please input your password!' }]}
+                    >
+                        <Input.Password />
+                    </Form.Item>
 
-                <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                    <Button type="primary" htmlType="submit">
-                        Submit
-                    </Button>
-                </Form.Item>
-            </Form>
-            
-          </Content>
-          <Footer style={{ textAlign: 'center' }}>หมาป่าหล่อเท่สุดคูล</Footer>
+                    <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                        <Button type="primary" htmlType="submit">
+                            Submit
+                        </Button>
+                    </Form.Item>
+                </Form>
+                
+            </Content>
+            <Footer style={{ textAlign: 'center' }}>หมาป่าหล่อเท่สุดคูล</Footer>
         </Layout>
-      );
+    );
 }
 
 

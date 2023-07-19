@@ -28,7 +28,6 @@ const WebHeader = () => {
 
     const GetDisplayNameAndTheme = async () => {
         const result =await GetDisplayNameAndThemeFromToken();
-        console.log(result);
         if (result !== undefined) {
             const {userDisplayName,colorTheme} = result;
             SetUser(userDisplayName);
@@ -64,19 +63,28 @@ const WebHeader = () => {
   
   
     return (
-    <Header className={style.header} style={{backgroundColor:theme }} >
+        <Header className={style.header} style={{ backgroundColor: theme }}>
         <div className={style.clock}>
-            {user && <Clock user={user} />}
+          {user && <Clock user={user}/>}
         </div>
+  
+        {/* User display with the class 'user_display' */}
         <div className={style.user_display}>
-            <Avatar size="large" icon={<UserOutlined />} />
-             <Dropdown menu={{items}}>
-                <a onClick={(e) => e.preventDefault()}>
-                    {user && `${user}`} <DownOutlined />
-                </a>
-            </Dropdown>
+          {/* Avatar component with the class 'ant-avatar' */}
+          <div className={style.ant_avatar}>
+            <Avatar size="large" icon={<UserOutlined /> } />
+          </div>
+  
+          {/* User name element with the class 'user-name' */}
+          <span className={style.user_name}>{user && `${user}`}</span>
+  
+          <Dropdown menu={{ items }}>
+            <a onClick={(e) => e.preventDefault()}>
+              <DownOutlined />
+            </a>
+          </Dropdown>
         </div>
-    </Header>
+      </Header>
     );
 }
 

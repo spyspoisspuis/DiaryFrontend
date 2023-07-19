@@ -1,17 +1,43 @@
 .header {
     display: flex;
     justify-content: space-between;
+    padding-left: 20px;
+    padding-right: 20px;
     align-items: center;
     color: white;
-    height: 20%;
+  
     .user_display {
-        display:flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
     }
-
+  
     .clock {
-        font-size: 20px;
+      font-size: 20px;
     }
+}
+/* Media query for screens with a max width of 768px (Mobile devices) */
+@media (max-width: 768px) {
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    .user_display {
+        /* Hide the Avatar and adjust the font size for user */
+        .ant_avatar {
+            display: none;
+        }
+    
+        .user_name {
+            font-size: 12px; /* Adjust the font size as per your requirement */
+        }
+        }
+    .clock {
+        font-size: 16px;
+    }
+}
+
 }

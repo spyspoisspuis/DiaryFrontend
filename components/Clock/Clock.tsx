@@ -23,9 +23,9 @@ const Clock: React.FC<ClockProps> = ({ user }) => {
             return
         }
         if (user == AUEYDISPLAYNAME) {
-            SetSelectTimeZone(bneDisplay);
-        } else if (user == SPYDISPLAYNAME) {
             SetSelectTimeZone(bkkDisplay);
+        } else if (user == SPYDISPLAYNAME) {
+            SetSelectTimeZone(bneDisplay);
         } else {
             SetSelectTimeZone("Choose Time zone")
         }

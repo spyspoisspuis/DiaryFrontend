@@ -10,35 +10,29 @@ const { Content, Footer } = Layout;
 
 const Login = () => {
     const router = useRouter();
-    const onLogin = (values: any) => {
-        console.log(process.env.NEXT_PUBLIC_BACKEND_API);
-        axios.post(process.env.NEXT_PUBLIC_BACKEND_API+`/login`, {
-            Username: values.username,
-            Password: values.password
-          }, { withCredentials: true })
-            .then(function (response) {
-                const storeAuthToken = response.data.token;
-                localStorage.setItem('authToken',storeAuthToken);
-                if (response.data.username == AUEYUSERNAME) {
-                    localStorage.setItem('user',AUEYDISPLAYNAME)
-                    localStorage.setItem('theme',AUEYCOLORTHEME)
-
-                } else if (response.data.username == SPYUSERNAME){
-                    localStorage.setItem('user',SPYDISPLAYNAME)
-                    localStorage.setItem('theme',SPYCOLORTHEME)
-                }else {
-                    localStorage.setItem('user',TESTDISPLAYNAME)
-                    localStorage.setItem('theme',TESTCOLORTHEME)
-
-                }
-                router.push({
-                    pathname: "/home"
-                });
-            })
-            .catch(function (error) {
-                alert(error);
-            });
+    const onLogin = async (values: any) => {
+        try {
+          const response = await axios.post(
+            process.env.NEXT_PUBLIC_BACKEND_API + `/login`,
+            {
+              Username: values.username,
+              Password: values.password,
+            },
+            { withCredentials: true }
+          );
+      
+          const storeAuthToken = response.data.token;
+          localStorage.setItem('authToken', storeAuthToken);
+      
+          // Pass the userDisplayName and colorTheme as query parameters
+          router.push({
+            pathname: '/home',
+          });
+        } catch (error) {
+          alert(error);
+        }
     };
+      
       
     const onFinishFailed = (errorInfo: any) => {
         console.log('Failed:', errorInfo);

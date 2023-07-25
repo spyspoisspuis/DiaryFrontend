@@ -7,7 +7,7 @@ import axios from "axios";
 
 interface ClockProps {
     user: string;
-  }
+}
 
 const Clock: React.FC<ClockProps> = ({ user }) => {
     

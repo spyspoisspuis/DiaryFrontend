@@ -1,0 +1,126 @@
+.empty {
+
+    display:flex;
+    flex-grow: 1; /* This will make .sub-container occupy the remaining vertical space within .diary */
+    justify-content: center;
+    align-items: center;
+    // background-color: pink;
+    .empty_container {
+        display: flex;
+        // flex-grow: 1; /* This will make .sub-container occupy the remaining vertical space within .diary */
+        justify-content: center;
+        align-items: center;
+    }
+    
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+
+    .diary_container {
+        color: black;
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+        flex-grow: 1; /* This will make .diary_container occupy the remaining vertical space within .container */
+        width:60%;
+        gap: 20px;
+        // background-color: blue;
+
+        .main_content {
+            display: flex;
+            flex-flow: column;
+            justify-content: space-between;
+            gap:10px;
+            .header {
+                font-size: 20px;
+                // background-color: green;
+            }
+            .context {
+                width: 100%; /* Set the width of the container as per your requirement */
+                word-wrap: break-word; /* Enable word wrapping */
+                white-space: pre-line; /* Preserve line breaks */
+                // background-color: blue;
+            }
+            .footer {
+                font-size: 20px;
+    
+                // background-color: brown;
+            }
+        }
+        
+
+        .draft_message {
+            // background-color: grey;
+            color: grey;
+            align-self: flex-end;
+            display:flex;
+            justify-content: space-between;
+            gap: 10px;
+            align-items: center;
+            flex-flow:row
+
+        }
+        /* Add any styles specific to .diary_container ... */
+    }
+}
+@media (max-width: 768px) {
+    .container {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        justify-content: center;
+        align-items: center;
+        .diary_container {
+            color: black;
+            display: flex;
+            justify-content: flex-start;
+            flex-direction: column;
+            flex-grow: 1; /* This will make .diary_container occupy the remaining vertical space within .container */
+            width:90%;
+            gap: 20px;
+            // background-color: blue;
+    
+            .main_content {
+                display: flex;
+                flex-flow: column;
+                justify-content: space-between;
+                gap:10px;
+                .header {
+                    font-size: 20px;
+                    // background-color: green;
+                }
+                .context {
+                    width: 100%; /* Set the width of the container as per your requirement */
+                    word-wrap: break-word; /* Enable word wrapping */
+                    white-space: pre-line; /* Preserve line breaks */
+                    // background-color: blue;
+                }
+                .footer {
+                    font-size: 20px;
+        
+                    // background-color: brown;
+                }
+            }
+            
+    
+            .draft_message {
+                // background-color: grey;
+                color: grey;
+                align-self: flex-end;
+                display:flex;
+                justify-content: space-between;
+                gap: 10px;
+                align-items: center;
+                flex-flow:row
+    
+            }
+            /* Add any styles specific to .diary_container ... */
+        }
+    }
+}
+  

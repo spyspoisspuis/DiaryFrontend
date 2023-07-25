@@ -1,0 +1,19 @@
+/* Default styles */
+.tabItem {
+  display: block; /* Show .tabItem by default (on desktop) */
+}
+
+.dropdownItem {
+  display: none; /* Hide .dropDownItem by default (on desktop) */
+}
+
+/* @media query for screens with a maximum width of 768 pixels (mobile devices) */
+@media (max-width: 768px) {
+  .tabItem {
+    display: none; /* Hide .tabItem on mobile */
+  }
+
+  .dropdownItem {
+    display: block; /* Show .dropDownItem on mobile */
+  }
+}

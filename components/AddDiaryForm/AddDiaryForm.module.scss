@@ -1,0 +1,18 @@
+.form {
+    width:100%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+    .form_content {
+        width: 60%;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        .bigTextArea{
+            width: 100%;
+            min-height: 200px;
+        }
+    }
+}
+

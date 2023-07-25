@@ -38,6 +38,8 @@
   --callout-border-rgb: 172, 175, 176;
   --card-rgb: 180, 185, 188;
   --card-border-rgb: 131, 134, 135;
+
+  --tab-bar-background-color: red;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -104,4 +106,13 @@ a {
   html {
     color-scheme: dark;
   }
+}
+.ant-tabs-ink-bar {
+  height: 5px;
+  background: var(--tab-bar-background-color) !important;
+}
+
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: var(--tab-bar-background-color) !important; 
+  font-weight: 500;
 }

@@ -1,44 +1,31 @@
-import React, {useState,useEffect} from 'react';
+import React from 'react';
 import style from './Header.module.scss'
 import { Layout ,Avatar,Dropdown,Menu} from 'antd';
 import type { MenuProps } from 'antd';
 import {UserOutlined,DownOutlined} from '@ant-design/icons'
-import {GetDisplayNameAndThemeFromToken} from '@/function'
-import axios from "axios";
 import { useRouter } from "next/router";
 import Clock from '../Clock/Clock'
+import axios from "axios"
 
 const { Header} = Layout;
 
+interface HeaderProps {
+  user: string;
+  theme: string;
+}
 
-const WebHeader = () => {
+const WebHeader: React.FC<HeaderProps> = ({ user,theme }) => {
     const router = useRouter();
 
     const token = typeof localStorage !== 'undefined' ? localStorage.getItem('authToken') : null;
     
-    const [user,SetUser] = useState('');
-    const [theme,SetTheme] = useState('');
-
     const axiosInstance = axios.create({
-        headers: {
-          // Set the Authorization header with the token value
-          Authorization: `Bearer ${token}`
-        }
+      headers: {
+        // Set the Authorization header with the token value
+        Authorization: `Bearer ${token}`
+      }
     });
-
-    const GetDisplayNameAndTheme = async () => {
-        const result =await GetDisplayNameAndThemeFromToken();
-        if (result !== undefined) {
-            const {userDisplayName,colorTheme} = result;
-            SetUser(userDisplayName);
-            SetTheme(colorTheme);
-        }
-    }
-
-    useEffect(() => {
-        GetDisplayNameAndTheme();
-      }, [])
-
+    
     const Logout = () => {
         axiosInstance.post((process.env.NEXT_PUBLIC_BACKEND_API+`/user/logout`))
         .then(function (response) {
@@ -60,6 +47,12 @@ const WebHeader = () => {
           ),
         },
     ];
+
+    const backHomePage = () => {
+      router.push({
+        pathname: "/home"
+      })
+    }
   
   
     return (
@@ -67,6 +60,8 @@ const WebHeader = () => {
         <div className={style.clock}>
           {user && <Clock user={user}/>}
         </div>
+
+        <div className={style.logo} onClick={backHomePage}>AuengAuey Rokjit</div>
   
         {/* User display with the class 'user_display' */}
         <div className={style.user_display}>

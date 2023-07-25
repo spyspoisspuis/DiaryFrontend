@@ -1,9 +1,80 @@
 .layout {
-    height:100vh;
+    min-height:100vh;
+    // background-color: green;
+    display: flex;
+    flex-direction: column;
     .content {
         display:flex;
-        justify-content: center;
-        align-items: center;
-        padding: '20px 50px'
+        flex-flow: column;
+        margin: 20px;
+        // background-color: blue;
+        flex-grow: 1; /* This will make .content occupy all available vertical space */
+
+        .header_rows {
+            display:flex;
+            flex-flow : row;
+            justify-content: center; /* Align items with space between them */
+            position: relative;
+            // background-color: red;
+            .week_picker {
+                position:absolute;
+                right:0;
+            }
+        }
+
+        .diary {
+            // background-color: grey;
+            align-self: center;
+            width:95%;
+            height:100%;
+            flex-grow: 1; /* This will make .diary occupy the remaining vertical space */
+            display: flex; /* Add this */
+            flex-direction: column; /* Add this */
+        }
+
+
     }
+}
+
+/* Media query for screens with a max width of 768px (Mobile devices) */
+@media (max-width: 768px) {
+    .layout {
+        min-height:100vh;
+        // background-color: green;
+        display: flex;
+        flex-direction: column;
+        .content {
+            display:flex;
+            flex-flow: column;
+            margin: 20px;
+            // background-color: blue;
+            flex-grow: 1; /* This will make .content occupy all available vertical space */
+    
+            .header_rows {
+                display:flex;
+                flex-flow : row;
+                justify-content: space-between; /* Align items with space between them */
+                position: relative;
+                // background-color: red;
+
+                .week_picker {
+                    position:absolute;
+                    right:0;
+                }
+            }
+    
+            .diary {
+                // background-color: grey;
+                padding-top:20px;
+                align-self: center;
+                width:95%;
+                height:100%;
+                flex-grow: 1; /* This will make .diary occupy the remaining vertical space */
+                display: flex; /* Add this */
+                flex-direction: column; /* Add this */
+            }
+        }
+    }
+    
+
 }

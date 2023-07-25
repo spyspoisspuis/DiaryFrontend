@@ -34,7 +34,9 @@ export const GetUsernameDisplayNameAndThemeFromToken = (): Promise<{ userDisplay
           resolve({ userDisplayName, colorTheme,username });
         })
         .catch(function (error) {
-          if (error.status == 401){
+          console.log("ERR",error)
+          if (error.response.status == 401){
+            
             userDisplayName="401"
           }
           // return error 401

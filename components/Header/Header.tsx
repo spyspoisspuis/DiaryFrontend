@@ -1,6 +1,6 @@
 import React from 'react';
 import style from './Header.module.scss'
-import { Layout ,Avatar,Dropdown,Menu} from 'antd';
+import { Layout ,Avatar,Dropdown,Menu,message} from 'antd';
 import type { MenuProps } from 'antd';
 import {UserOutlined,DownOutlined} from '@ant-design/icons'
 import { useRouter } from "next/router";
@@ -16,6 +16,7 @@ interface HeaderProps {
 
 const WebHeader: React.FC<HeaderProps> = ({ user,theme }) => {
     const router = useRouter();
+    const [messageApi, contextHolder] = message.useMessage();
 
     const token = typeof localStorage !== 'undefined' ? localStorage.getItem('authToken') : null;
     
@@ -35,7 +36,10 @@ const WebHeader: React.FC<HeaderProps> = ({ user,theme }) => {
             });
         })
         .catch(function (error) {
-            alert(error);
+          messageApi.open({
+            type: 'error',
+            content: 'An error occurred when logout. Contact HandsomeWolf.',
+          });
         });
     };
     
@@ -56,6 +60,8 @@ const WebHeader: React.FC<HeaderProps> = ({ user,theme }) => {
   
   
     return (
+      <>
+        {contextHolder}
         <Header className={style.header} style={{ backgroundColor: theme }}>
         <div className={style.clock}>
           {user && <Clock user={user}/>}
@@ -80,6 +86,7 @@ const WebHeader: React.FC<HeaderProps> = ({ user,theme }) => {
           </Dropdown>
         </div>
       </Header>
+      </>
     );
 }
 

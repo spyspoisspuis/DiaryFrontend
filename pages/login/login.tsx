@@ -1,6 +1,6 @@
 import React from 'react';
 import style from './login.module.scss'
-import {Layout, Button, Form, Input} from 'antd';
+import {Layout, Button, Form, Input,message} from 'antd';
 import axios from "axios";
 import { useRouter } from "next/router";
 import { LoginWebHeader } from "../../components";
@@ -9,6 +9,8 @@ import {AUEYUSERNAME,AUEYDISPLAYNAME, TESTDISPLAYNAME,AUEYCOLORTHEME,TESTCOLORTH
 const { Content, Footer } = Layout;
 
 const Login = () => {
+    const [messageApi, contextHolder] = message.useMessage();
+
     const router = useRouter();
     const onLogin = async (values: any) => {
         try {
@@ -28,8 +30,19 @@ const Login = () => {
           router.push({
             pathname: '/home',
           });
-        } catch (error) {
-          alert(error);
+        } catch (error:any) {
+            if (error.response.status == 403){
+                messageApi.open({
+                    type: 'error',
+                    content: 'Invalid username or password',
+                  });
+            } else {
+                messageApi.open({
+                    type: 'error',
+                    content: 'An error occurred. Please try again later.',
+                  });
+            }
+
         }
     };
       
@@ -39,6 +52,8 @@ const Login = () => {
     };
 
     return (
+        <>
+        {contextHolder}
         <Layout className={style.layout}>
             <LoginWebHeader/>
             <Content className={style.content}>
@@ -78,6 +93,7 @@ const Login = () => {
             </Content>
             <Footer style={{ textAlign: 'center' }}>หมาป่าหล่อเท่สุดคูล</Footer>
         </Layout>
+        </>
     );
 }
 

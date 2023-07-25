@@ -1,5 +1,5 @@
 import React, {useState,useEffect} from 'react';
-import {Dropdown} from 'antd';
+import {Dropdown,message} from 'antd';
 import type { MenuProps } from 'antd';
 import moment from 'moment-timezone';
 import {AUEYUSERNAME,AUEYDISPLAYNAME, TESTDISPLAYNAME,AUEYCOLORTHEME,TESTCOLORTHEME, SPYUSERNAME, SPYDISPLAYNAME, SPYCOLORTHEME} from '@/constant'
@@ -10,7 +10,8 @@ interface ClockProps {
 }
 
 const Clock: React.FC<ClockProps> = ({ user }) => {
-    
+    const [messageApi, contextHolder] = message.useMessage();
+
     const[ isSetDefaultTimeZone,SetIsSetDefaultTimeZone] = useState(false);
     const [selectTimeZone,SetSelectTimeZone] = useState('DEFAULT');
 
@@ -42,7 +43,10 @@ const Clock: React.FC<ClockProps> = ({ user }) => {
             const dayOfWeek = dateTimeObject.format('ddd');
             return {time, dayOfWeek}
         } catch (error) {
-          console.error('Error fetching date and time:', error);
+            messageApi.open({
+                type: 'error',
+                content: 'Error fetching date and time. Contact HandsomeWolf',
+              });
         }
     }
 
@@ -68,7 +72,10 @@ const Clock: React.FC<ClockProps> = ({ user }) => {
             SetDefaultTimeZone({bkkDisplay,bneDisplay});
         
         } catch (error) {
-          console.error('Error fetching date and time:', error);
+            messageApi.open({
+                type: 'error',
+                content: 'Error fetching date and time. Contact HandsomeWolf',
+              });
         }
     };
 

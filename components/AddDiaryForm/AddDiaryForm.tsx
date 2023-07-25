@@ -94,7 +94,10 @@ const AddDiaryForm: React.FC<AddDiaryFormProps> = ({username,success}) => {
                 });
             }
             else {
-                alert(error);
+              messageApi.open({
+                type: 'error',
+                content: 'Error fetching diary data for editing. Contact HandsomeWolf',
+              });
             } 
           });
         } else {
@@ -139,7 +142,10 @@ const AddDiaryForm: React.FC<AddDiaryFormProps> = ({username,success}) => {
           week: dayjs(response.startOfWeek),
         });
       } catch (error) {
-        console.error('Error occurred:', error);
+        messageApi.open({
+          type: 'error',
+          content: 'Error fetching current week. Contact HandsomeWolf',
+        });
       } 
     }
 
@@ -173,7 +179,10 @@ const AddDiaryForm: React.FC<AddDiaryFormProps> = ({username,success}) => {
                 pathname:"/login"
               });
             } else {
-              alert(error);
+              messageApi.open({
+                type: 'error',
+                content: 'Error add/edit diary data. Contact HandsomeWolf',
+              });
             }
           });
       };
@@ -213,7 +222,10 @@ const AddDiaryForm: React.FC<AddDiaryFormProps> = ({username,success}) => {
             });
         }
         else {
-            alert(error);
+          messageApi.open({
+            type: 'error',
+            content: 'Error fetching diary data when changing selected week. Contact HandsomeWolf',
+          });
         } 
       });
     }

@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from 'react';
-import { Empty,Button,Tooltip} from 'antd';
+import { Empty,Button,Tooltip,message} from 'antd';
 import style from './Diary.module.scss'
 import axios from "axios"
 import { useRouter } from 'next/router';
@@ -23,6 +23,8 @@ interface DiaryData {
 
 const Diary: React.FC<DiaryProps> = ({ user,displayUser,week,theme}) => {
     const router = useRouter();
+    const [messageApi, contextHolder] = message.useMessage();
+
     const token = typeof localStorage !== "undefined" ? localStorage.getItem("authToken") : null;
     const axiosInstance = axios.create({
         headers: {
@@ -37,7 +39,7 @@ const Diary: React.FC<DiaryProps> = ({ user,displayUser,week,theme}) => {
         if (week == "not-select-week") {
             return
         }
-        let url =  process.env.NEXT_PUBLIC_BACKEND_API +`/user/diary/get?writer=${displayUser}&week=${week}`
+        let url =  process.env.NEXT_PUBLIC_BACKEND_API +`/user/diary/get?write=${displayUser}&week=${week}`
         axiosInstance.get(url)
         .then(function (response) {
            if(response.status == 204) {
@@ -48,13 +50,16 @@ const Diary: React.FC<DiaryProps> = ({ user,displayUser,week,theme}) => {
            }
         })
         .catch(function (error) {
-            if (error.code == 401) {
+            if (error.response.status == 401) {
                 router.push({
                     pathname: "/login",
                 });
             }
             else {
-                alert(error);
+                messageApi.open({
+                    type: 'error',
+                    content: 'Error fetching for display diarys data. Contact HandsomeWolf.',
+                  });
             } 
         }
         );
@@ -83,6 +88,7 @@ const Diary: React.FC<DiaryProps> = ({ user,displayUser,week,theme}) => {
 
     return (
         <>
+        {contextHolder}
             { isNoContent && <div className={style.empty}>
                 <div className={style.empty_container}>
                     {(week == "" || week == "not-select-week")&& <Empty description={<span>ไปเลือกสัปดาห์ที่มุมขวาบนก่อนนะคะ</span>} />}

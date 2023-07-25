@@ -39,7 +39,7 @@ const Diary: React.FC<DiaryProps> = ({ user,displayUser,week,theme}) => {
         if (week == "not-select-week") {
             return
         }
-        let url =  process.env.NEXT_PUBLIC_BACKEND_API +`/user/diary/get?write=${displayUser}&week=${week}`
+        let url =  process.env.NEXT_PUBLIC_BACKEND_API +`/user/diary/get?writer=${displayUser}&week=${week}`
         axiosInstance.get(url)
         .then(function (response) {
            if(response.status == 204) {
